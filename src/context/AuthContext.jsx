@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
       if (token) {
         axios
-          .get("http://localhost:8080/api/notes", {
+          .get("https://note-app-1g0c.onrender.com/api/notes", {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => setUser(res.data.user))
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     }, [token]);
   
     const login = async (email, password) => {
-      const res = await axios.post("http://localhost:8080/api/login", { email, password });
+      const res = await axios.post("https://note-app-1g0c.onrender.com/api/login", { email, password });
       setToken(res.data.token);
       localStorage.setItem("token", res.data.token);
     };
