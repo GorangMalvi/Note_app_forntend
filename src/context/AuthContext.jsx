@@ -5,18 +5,23 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
+console.log("API Base URL:", API_BASE_URL); // Debugging
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem("token") || "");
     const navigate = useNavigate();
+
     useEffect(() => {
       if (token) {
         axios
           .get(`${API_BASE_URL}/api/notes`, {
             headers: { Authorization: `Bearer ${token}` },
           })
-          .then((res) => setUser(res.data.user))
+          .then((res) => {
+            console.log("User data:", res.data.user); // Debugging
+            setUser(res.data.user);
+          })
           .catch(() => logout());
       }
     }, [token]);
@@ -26,6 +31,8 @@ export const AuthProvider = ({ children }) => {
         console.log("Sending Login Data:", { email, password }); // Debugging
     
         const res = await axios.post(`${API_BASE_URL}/api/login`, { email, password });
+    
+        console.log("Login Response:", res.data); // Debugging
     
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
@@ -37,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   
     const signup = async (name, email, password) => {
       await axios.post(`${API_BASE_URL}/api/signup`, { name, email, password });
-      navigate(`${API_BASE_URL}/api/login`);
+      navigate("/login"); // ✅ Redirect to login page, not API URL
     };
   
     const logout = () => {
@@ -53,4 +60,4 @@ export const AuthProvider = ({ children }) => {
     );
   };
   
-  export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
