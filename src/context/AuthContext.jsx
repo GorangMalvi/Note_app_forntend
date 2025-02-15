@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-console.log("API Base URL:", API_BASE_URL); // Debugging
+console.log("API Base URL:", API_BASE_URL); 
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);

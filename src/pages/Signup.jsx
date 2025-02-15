@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Box, Input, Button, Heading } from "@chakra-ui/react";
-
-
+import { Link } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 
 const Signup = () => {
     const { signup } = useAuth();
@@ -33,7 +33,7 @@ const Signup = () => {
           fontWeight="bold"
           _hover={{ color: "blue.700" }}
         >
-          Sign Up
+          login
         </Link>
       </p>
       </Box>

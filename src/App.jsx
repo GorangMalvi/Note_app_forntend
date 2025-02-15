@@ -6,13 +6,13 @@ import Dashboard from "./pages/Dashboard";
 
 const PrivateRoute = ({ children }) => {
   const { token } = useAuth();
-  return token ? children : <Navigate to="/signup" />;
+  return token ? children : <Navigate to="/" />;
 };
 
 function App() {
   return (
     <Routes>
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
     </Routes>
