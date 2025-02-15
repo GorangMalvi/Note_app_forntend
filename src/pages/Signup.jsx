@@ -24,6 +24,18 @@ const Signup = () => {
           <Input placeholder="Password" type="password" mb={3} onChange={(e) => setForm({ ...form, password: e.target.value })} />
           <Button type="submit" colorScheme="blue" w="full">Sign Up</Button>
         </form>
+        <p>
+        Already have a account?{" "}
+        <Link
+          as={RouterLink}
+          to="/login"
+          color="blue.500"
+          fontWeight="bold"
+          _hover={{ color: "blue.700" }}
+        >
+          Sign Up
+        </Link>
+      </p>
       </Box>
     );
   };

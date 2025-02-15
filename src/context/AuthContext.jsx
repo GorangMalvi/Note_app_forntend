@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   
     const signup = async (name, email, password) => {
       await axios.post(`${API_BASE_URL}/api/signup`, { name, email, password });
-      navigate("/login"); // ✅ Redirect to login page, not API URL
+      navigate("/login"); 
     };
   
     const logout = () => {

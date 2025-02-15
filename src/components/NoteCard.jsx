@@ -30,6 +30,7 @@ const NoteCard = ({ note, refreshNotes }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isFavorited, setIsFavorited] = useState(note.isFavorite || false);
   const [image, setImage] = useState(note.image || null);
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   const handleDelete = async () => {
     await deleteNote(token, note._id);
@@ -37,7 +38,7 @@ const NoteCard = ({ note, refreshNotes }) => {
   };
 
   const handleRename = async () => {
-    await axios.put(`http://localhost:8080/api/notes/${note._id}`, { title: newTitle, content: newContent }, {
+    await axios.put(`${API_BASE_URL}/api/notes/${note._id}`, { title: newTitle, content: newContent }, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setIsEditing(false);
@@ -46,7 +47,7 @@ const NoteCard = ({ note, refreshNotes }) => {
 
   const toggleFavorite = async () => {
     setIsFavorited(!isFavorited);
-    await axios.put(`http://localhost:8080/api/notes/${note._id}`, { isFavorite: !isFavorited }, {
+    await axios.put(`${API_BASE_URL}/api/notes/${note._id}`, { isFavorite: !isFavorited }, {
       headers: { Authorization: `Bearer ${token}` },
     });
   };
@@ -58,12 +59,12 @@ const NoteCard = ({ note, refreshNotes }) => {
     const formData = new FormData();
     formData.append("image", file);
 
-    const res = await axios.post(`http://localhost:8080/api/upload`, formData, {
+    const res = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
     });
 
     setImage(res.data.imageUrl);
-    await axios.put(`http://localhost:8080/api/notes/${note._id}`, { image: res.data.imageUrl }, {
+    await axios.put(`${API_BASE_URL}/notes/${note._id}`, { image: res.data.imageUrl }, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
